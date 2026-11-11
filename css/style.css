@@ -1,0 +1,170 @@
+
+* {
+    box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+            padding: 0;
+                background: #101827;
+                    color: white;
+                        font-family: Arial, sans-serif;
+                            text-align: center;
+                            }
+
+                            header {
+                                background: #172b43;
+                                    padding: 12px;
+                                    }
+
+                                    header h1 {
+                                        margin: 5px;
+                                            letter-spacing: 4px;
+                                            }
+
+                                            header p {
+                                                color: #9bbbd3;
+                                                    margin: 5px;
+                                                    }
+
+                                                    main {
+                                                        display: flex;
+                                                            justify-content: center;
+                                                                align-items: flex-start;
+                                                                    gap: 18px;
+                                                                        padding: 15px;
+                                                                        }
+
+                                                                        #game-container {
+                                                                            width: 960px;
+                                                                                max-width: 100%;
+                                                                                    overflow: hidden;
+                                                                                        border: 3px solid #557c96;
+                                                                                            border-radius: 10px;
+                                                                                            }
+
+                                                                                            #game-container canvas {
+                                                                                                display: block;
+                                                                                                    max-width: 100%;
+                                                                                                        touch-action: none;
+                                                                                                        }
+
+                                                                                                        #dashboard {
+                                                                                                            width: 250px;
+                                                                                                                padding: 15px;
+                                                                                                                    text-align: left;
+                                                                                                                        background: #20344c;
+                                                                                                                            border-radius: 10px;
+                                                                                                                            }
+
+                                                                                                                            #dashboard h2 {
+                                                                                                                                color: #72d6e9;
+                                                                                                                                    font-size: 20px;
+                                                                                                                                    }
+
+                                                                                                                                    #dashboard h3 {
+                                                                                                                                        color: #f3c76a;
+                                                                                                                                            font-size: 14px;
+                                                                                                                                                margin-top: 20px;
+                                                                                                                                                }
+
+                                                                                                                                                .resource {
+                                                                                                                                                    padding: 8px;
+                                                                                                                                                        margin: 5px 0;
+                                                                                                                                                            background: #304b65;
+                                                                                                                                                                border-radius: 5px;
+                                                                                                                                                                }
+
+                                                                                                                                                                #message {
+                                                                                                                                                                    min-height: 55px;
+                                                                                                                                                                        font-size: 13px;
+                                                                                                                                                                            line-height: 1.5;
+                                                                                                                                                                            }
+
+                                                                                                                                                                            button {
+                                                                                                                                                                                padding: 12px;
+                                                                                                                                                                                    border: none;
+                                                                                                                                                                                        border-radius: 7px;
+                                                                                                                                                                                            background: #36a9a0;
+                                                                                                                                                                                                color: white;
+                                                                                                                                                                                                    font-weight: bold;
+                                                                                                                                                                                                        cursor: pointer;
+                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                        #end-day {
+                                                                                                                                                                                                            width: 100%;
+                                                                                                                                                                                                                margin-top: 10px;
+                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                #mobile-controls {
+                                                                                                                                                                                                                    display: flex;
+                                                                                                                                                                                                                        justify-content: center;
+                                                                                                                                                                                                                            align-items: center;
+                                                                                                                                                                                                                                gap: 55px;
+                                                                                                                                                                                                                                    padding: 15px;
+                                                                                                                                                                                                                                        touch-action: none;
+                                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                                        .direction-pad {
+                                                                                                                                                                                                                                            display: flex;
+                                                                                                                                                                                                                                                flex-direction: column;
+                                                                                                                                                                                                                                                    align-items: center;
+                                                                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                                                                    .middle-row {
+                                                                                                                                                                                                                                                        display: flex;
+                                                                                                                                                                                                                                                            gap: 5px;
+                                                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                                                            #mobile-controls button {
+                                                                                                                                                                                                                                                                width: 53px;
+                                                                                                                                                                                                                                                                    height: 53px;
+                                                                                                                                                                                                                                                                        font-size: 19px;
+                                                                                                                                                                                                                                                                            touch-action: none;
+                                                                                                                                                                                                                                                                                user-select: none;
+                                                                                                                                                                                                                                                                                    -webkit-user-select: none;
+                                                                                                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                                                                                                    #interact {
+                                                                                                                                                                                                                                                                                        width: 110px !important;
+                                                                                                                                                                                                                                                                                            height: 65px !important;
+                                                                                                                                                                                                                                                                                                background: #c17a59;
+                                                                                                                                                                                                                                                                                                    font-size: 13px !important;
+                                                                                                                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                                                                                                                    footer {
+                                                                                                                                                                                                                                                                                                        padding: 15px;
+                                                                                                                                                                                                                                                                                                            color: #9bbbd3;
+                                                                                                                                                                                                                                                                                                                font-size: 13px;
+                                                                                                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                                                                                                @media (min-width: 901px) {
+
+                                                                                                                                                                                                                                                                                                                    #mobile-controls {
+                                                                                                                                                                                                                                                                                                                            display: none;
+                                                                                                                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                                                                                                                @media (max-width: 900px) {
+
+                                                                                                                                                                                                                                                                                                                                    main {
+                                                                                                                                                                                                                                                                                                                                            flex-direction: column;
+                                                                                                                                                                                                                                                                                                                                                    align-items: center;
+                                                                                                                                                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                                                                                                                                                            #dashboard {
+                                                                                                                                                                                                                                                                                                                                                                    width: 100%;
+                                                                                                                                                                                                                                                                                                                                                                            max-width: 500px;
+                                                                                                                                                                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                                                                                                                                                                    #game-container {
+                                                                                                                                                                                                                                                                                                                                                                                            width: 100%;
+                                                                                                                                                                                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                                                                                                                                                                                    #mobile-controls {
+                                                                                                                                                                                                                                                                                                                                                                                                            width: 100%;
+                                                                                                                                                                                                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                                                                                                                
