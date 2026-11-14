@@ -1,113 +1,68 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+      <title>Outpost Zero</title>
+        <link rel="stylesheet" href="css/style.css">
+          <script src="https://cdn.jsdelivr.net/npm/phaser@3.86.0/dist/phaser.min.js"></script>
+          </head>
+          <body>
+            <header>
+                <h1>OUTPOST ZERO</h1>
+                    <p>Junior Astronaut Mission Trainer</p>
+                      </header>
 
-        <meta name="viewport"
-                  content="width=device-width, initial-scale=1.0,
-                            maximum-scale=1.0, user-scalable=no">
+                        <main>
+                            <div id="game-container"></div>
 
-                                <title>Outpost Zero</title>
+                                <section id="dashboard">
+                                      <h2>Mission Control</h2>
+                                            <p>Sol <span id="day">1 / 7</span> &nbsp; Science <span id="science">0</span> / 50</p>
 
-                                    <link rel="stylesheet" href="css/style.css">
+                                                  <div class="meter"><label>Power left today <span id="power">10</span></label><div class="bar"><div id="bar-power"></div></div></div>
+                                                        <div class="meter"><label>Air <span id="air">70</span></label><div class="bar"><div id="bar-air"></div></div></div>
+                                                              <div class="meter"><label>Food <span id="food">70</span></label><div class="bar"><div id="bar-food"></div></div></div>
+                                                                    <div class="meter"><label>Radiation shield <span id="shield">70</span></label><div class="bar"><div id="bar-shield"></div></div></div>
+                                                                          <div class="meter"><label>Crew health <span id="health">100</span></label><div class="bar"><div id="bar-health"></div></div></div>
 
-                                        <script src="https://cdn.jsdelivr.net/npm/[email protected]/dist/phaser.min.js"></script>
-                                        </head>
+                                                                                <p id="hint"></p>
+                                                                                      <p id="message">Welcome, astronaut! You only get 10 power each sol. Spend it wisely.</p>
+                                                                                            <button id="end-day">END SOL</button>
+                                                                                                </section>
+                                                                                                  </main>
 
-                                        <body>
+                                                                                                    <section id="mobile-controls">
+                                                                                                        <div class="pad">
+                                                                                                              <button class="move" data-dir="up">&#9650;</button>
+                                                                                                                    <div class="pad-row">
+                                                                                                                            <button class="move" data-dir="left">&#9664;</button>
+                                                                                                                                    <button class="move" data-dir="down">&#9660;</button>
+                                                                                                                                            <button class="move" data-dir="right">&#9654;</button>
+                                                                                                                                                  </div>
+                                                                                                                                                      </div>
+                                                                                                                                                          <button id="interact">INTERACT</button>
+                                                                                                                                                            </section>
 
-                                            <header>
-                                                    <h1>OUTPOST ZERO</h1>
-                                                            <p>Junior Astronaut Mission Trainer</p>
-                                                                </header>
+                                                                                                                                                              <div id="overlay" class="hidden">
+                                                                                                                                                                  <div id="overlay-box">
+                                                                                                                                                                        <h3 id="ov-title"></h3>
+                                                                                                                                                                              <p id="ov-text"></p>
+                                                                                                                                                                                    <p id="ov-source"></p>
+                                                                                                                                                                                          <div id="ov-buttons"></div>
+                                                                                                                                                                                              </div>
+                                                                                                                                                                                                </div>
 
-                                                                    <main>
+                                                                                                                                                                                                  <footer>
+                                                                                                                                                                                                      Storm events are from NASA's DONKI space weather archive (saved copy, not live).
+                                                                                                                                                                                                          Radiation numbers: Chang'e 4 lander (Moon). Power, air and food numbers are simplified for the game.
+                                                                                                                                                                                                            </footer>
 
-                                                                            <div id="game-container"></div>
-
-                                                                                    <section id="dashboard">
-
-                                                                                                <h2>MISSION CONTROL</h2>
-
-                                                                                                            <p>Mission Day:
-                                                                                                                            <span id="day">1</span> / 7
-                                                                                                                                        </p>
-
-                                                                                                                                                    <p>Science Points:
-                                                                                                                                                                    <span id="science">0</span>
-                                                                                                                                                                                </p>
-
-                                                                                                                                                                                            <h3>LIFE SUPPORT</h3>
-
-                                                                                                                                                                                                        <div class="resource">
-                                                                                                                                                                                                                        Oxygen <span id="oxygen">80</span>
-                                                                                                                                                                                                                                    </div>
-
-                                                                                                                                                                                                                                                <div class="resource">
-                                                                                                                                                                                                                                                                Water <span id="water">80</span>
-                                                                                                                                                                                                                                                                            </div>
-
-                                                                                                                                                                                                                                                                                        <div class="resource">
-                                                                                                                                                                                                                                                                                                        Food <span id="food">80</span>
-                                                                                                                                                                                                                                                                                                                    </div>
-
-                                                                                                                                                                                                                                                                                                                                <div class="resource">
-                                                                                                                                                                                                                                                                                                                                                Power <span id="power">80</span>
-                                                                                                                                                                                                                                                                                                                                                            </div>
-
-                                                                                                                                                                                                                                                                                                                                                                        <div class="resource">
-                                                                                                                                                                                                                                                                                                                                                                                        Radiation Shield <span id="shield">80</span>
-                                                                                                                                                                                                                                                                                                                                                                                                    </div>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                <div class="resource">
-                                                                                                                                                                                                                                                                                                                                                                                                                                Crew Health <span id="health">100</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        <h3>MISSION MESSAGE</h3>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <p id="message">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Welcome, astronaut!
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </p>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <button id="end-day">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            END DAY
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </button>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </section>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </main>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <section id="mobile-controls">
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="direction-pad">
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <button class="move" data-dir="up">▲</button>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div class="middle-row">
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <button class="move" data-dir="left">◀</button>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <button class="move" data-dir="down">▼</button>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <button class="move" data-dir="right">▶</button>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <button id="interact">INTERACT</button>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </section>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <footer>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Explore the lunar base and keep your crew alive!
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </footer>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <script src="js/main.js"></script>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </body>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                              <script src="js/resources.js"></script>
+                                                                                                                                                                                                                <script src="js/missions.js"></script>
+                                                                                                                                                                                                                  <script src="js/interface.js"></script>
+                                                                                                                                                                                                                    <script src="js/player.js"></script>
+                                                                                                                                                                                                                      <script src="js/world.js"></script>
+                                                                                                                                                                                                                        <script src="js/main.js"></script>
+                                                                                                                                                                                                                        </body>
+                                                                                                                                                                                                                        </html>
