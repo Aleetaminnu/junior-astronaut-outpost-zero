@@ -1,157 +1,95 @@
+* { box-sizing: border-box; }
 
-* {
-    box-sizing: border-box;
-    }
+body {
+  margin: 0;
+    background: #101827;
+      color: #fff;
+        font-family: Arial, sans-serif;
+          text-align: center;
+          }
 
-    body {
-        margin: 0;
-            padding: 0;
-                background: #101827;
-                    color: white;
-                        font-family: Arial, sans-serif;
-                            text-align: center;
-                            }
+          header { background: #172b43; padding: 10px; }
+          header h1 { margin: 4px; letter-spacing: 4px; }
+          header p { margin: 4px; color: #9bbbd3; }
 
-                            header {
-                                background: #172b43;
-                                    padding: 12px;
-                                    }
+          main {
+            display: flex;
+              justify-content: center;
+                align-items: flex-start;
+                  gap: 16px;
+                    padding: 14px;
+                    }
 
-                                    header h1 {
-                                        margin: 5px;
-                                            letter-spacing: 4px;
-                                            }
+                    #game-container {
+                      width: 960px;
+                        max-width: 100%;
+                          border: 3px solid #557c96;
+                            border-radius: 8px;
+                              overflow: hidden;
+                              }
+                              #game-container canvas { display: block; max-width: 100%; touch-action: none; }
 
-                                            header p {
-                                                color: #9bbbd3;
-                                                    margin: 5px;
-                                                    }
+                              #dashboard {
+                                width: 270px;
+                                  padding: 14px;
+                                    text-align: left;
+                                      background: #20344c;
+                                        border-radius: 8px;
+                                        }
+                                        #dashboard h2 { margin-top: 0; color: #72d6e9; font-size: 19px; }
 
-                                                    main {
+                                        .meter { margin: 9px 0; font-size: 14px; }
+                                        .meter label { display: flex; justify-content: space-between; margin-bottom: 3px; }
+                                        .bar { height: 12px; background: #3a4f66; border-radius: 6px; overflow: hidden; }
+                                        .bar div { height: 100%; width: 50%; background: #36a9a0; }
+                                        .bar div.low { background: #d9534f; }
+
+                                        #hint { color: #f3c76a; font-size: 13px; min-height: 18px; }
+                                        #message { font-size: 13px; line-height: 1.5; min-height: 70px; }
+
+                                        button {
+                                          padding: 12px;
+                                            border: none;
+                                              border-radius: 6px;
+                                                background: #36a9a0;
+                                                  color: #fff;
+                                                    font-weight: bold;
+                                                      cursor: pointer;
+                                                      }
+                                                      #end-day { width: 100%; }
+
+                                                      #mobile-controls {
                                                         display: flex;
-                                                            justify-content: center;
-                                                                align-items: flex-start;
-                                                                    gap: 18px;
-                                                                        padding: 15px;
+                                                          justify-content: center;
+                                                            align-items: center;
+                                                              gap: 50px;
+                                                                padding: 12px;
+                                                                }
+                                                                .pad { display: flex; flex-direction: column; align-items: center; }
+                                                                .pad-row { display: flex; gap: 5px; }
+                                                                .move { width: 52px; height: 52px; font-size: 18px; touch-action: none; user-select: none; }
+                                                                #interact { width: 110px; height: 64px; background: #c17a59; }
+
+                                                                footer { padding: 14px; color: #9bbbd3; font-size: 12px; max-width: 800px; margin: auto; }
+
+                                                                #overlay {
+                                                                  position: fixed; inset: 0;
+                                                                    background: rgba(0, 0, 0, 0.7);
+                                                                      display: flex; align-items: center; justify-content: center;
+                                                                        z-index: 10;
                                                                         }
+                                                                        #overlay.hidden { display: none; }
+                                                                        #overlay-box {
+                                                                          background: #20344c; border: 2px solid #f3c76a; border-radius: 8px;
+                                                                            padding: 18px; max-width: 460px; width: 90%; text-align: left;
+                                                                            }
+                                                                            #ov-source { color: #9bbbd3; font-size: 12px; }
+                                                                            #ov-buttons button { display: block; width: 100%; margin-top: 8px; text-align: left; }
+                                                                            #ov-buttons small { display: block; font-weight: normal; color: #dbe7f0; }
 
-                                                                        #game-container {
-                                                                            width: 960px;
-                                                                                max-width: 100%;
-                                                                                    overflow: hidden;
-                                                                                        border: 3px solid #557c96;
-                                                                                            border-radius: 10px;
-                                                                                            }
-
-                                                                                            #game-container canvas {
-                                                                                                display: block;
-                                                                                                    max-width: 100%;
-                                                                                                        touch-action: none;
-                                                                                                        }
-
-                                                                                                        #dashboard {
-                                                                                                            width: 250px;
-                                                                                                                padding: 15px;
-                                                                                                                    text-align: left;
-                                                                                                                        background: #20344c;
-                                                                                                                            border-radius: 10px;
-                                                                                                                            }
-
-                                                                                                                            #dashboard h2 {
-                                                                                                                                color: #72d6e9;
-                                                                                                                                    font-size: 20px;
-                                                                                                                                    }
-
-                                                                                                                                    #dashboard h3 {
-                                                                                                                                        color: #f3c76a;
-                                                                                                                                            font-size: 14px;
-                                                                                                                                                margin-top: 20px;
-                                                                                                                                                }
-
-                                                                                                                                                .resource {
-                                                                                                                                                    padding: 8px;
-                                                                                                                                                        margin: 5px 0;
-                                                                                                                                                            background: #304b65;
-                                                                                                                                                                border-radius: 5px;
-                                                                                                                                                                }
-
-                                                                                                                                                                #message {
-                                                                                                                                                                    min-height: 55px;
-                                                                                                                                                                        font-size: 13px;
-                                                                                                                                                                            line-height: 1.5;
-                                                                                                                                                                            }
-
-                                                                                                                                                                            button {
-                                                                                                                                                                                padding: 12px;
-                                                                                                                                                                                    border: none;
-                                                                                                                                                                                        border-radius: 7px;
-                                                                                                                                                                                            background: #36a9a0;
-                                                                                                                                                                                                color: white;
-                                                                                                                                                                                                    font-weight: bold;
-                                                                                                                                                                                                        cursor: pointer;
-                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                        #end-day {
-                                                                                                                                                                                                            width: 100%;
-                                                                                                                                                                                                                margin-top: 10px;
-                                                                                                                                                                                                                }
-
-                                                                                                                                                                                                                #mobile-controls {
-                                                                                                                                                                                                                    display: flex;
-                                                                                                                                                                                                                        justify-content: center;
-                                                                                                                                                                                                                            align-items: center;
-                                                                                                                                                                                                                                gap: 55px;
-                                                                                                                                                                                                                                    padding: 15px;
-                                                                                                                                                                                                                                        touch-action: none;
-                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                        .direction-pad {
-                                                                                                                                                                                                                                            display: flex;
-                                                                                                                                                                                                                                                flex-direction: column;
-                                                                                                                                                                                                                                                    align-items: center;
-                                                                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                                                                    .middle-row {
-                                                                                                                                                                                                                                                        display: flex;
-                                                                                                                                                                                                                                                            gap: 5px;
-                                                                                                                                                                                                                                                            }
-
-                                                                                                                                                                                                                                                            #mobile-controls button {
-                                                                                                                                                                                                                                                                width: 53px;
-                                                                                                                                                                                                                                                                    height: 53px;
-                                                                                                                                                                                                                                                                        font-size: 19px;
-                                                                                                                                                                                                                                                                            touch-action: none;
-                                                                                                                                                                                                                                                                                user-select: none;
-                                                                                                                                                                                                                                                                                    -webkit-user-select: none;
-                                                                                                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                                                                                                    #interact {
-                                                                                                                                                                                                                                                                                        width: 110px !important;
-                                                                                                                                                                                                                                                                                            height: 65px !important;
-                                                                                                                                                                                                                                                                                                background: #c17a59;
-                                                                                                                                                                                                                                                                                                    font-size: 13px !important;
-                                                                                                                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                                                                                                                    footer {
-                                                                                                                                                                                                                                                                                                        padding: 15px;
-                                                                                                                                                                                                                                                                                                            color: #9bbbd3;
-                                                                                                                                                                                                                                                                                                                font-size: 13px;
-                                                                                                                                                                                                                                                                                                                }
-
-                                                                                                                                                                                                                                                                                                                @media (min-width: 901px) {
-
-                                                                                                                                                                                                                                                                                                                    #mobile-controls {
-                                                                                                                                                                                                                                                                                                                            display: none;
-                                                                                                                                                                                                                                                                                                                                }
-
-                                                                                                                                                                                                                                                                                                                                }
-
-                                                                                                                                                                                                                                                                                                                                @media (min-width: 901px) and (hover: hover) {
-                                                                                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                                                                                        #mobile-controls {
-                                                                                                                                                                                                                                                                                                                                                    display: none;
-                                                                                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                                                                                                                
+                                                                            @media (min-width: 901px) { #mobile-controls { display: none; } }
+                                                                            @media (max-width: 900px) {
+                                                                              main { flex-direction: column; align-items: center; }
+                                                                                #dashboard { width: 100%; max-width: 500px; }
+                                                                                  #game-container { width: 100%; }
+                                                                                  }
