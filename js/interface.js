@@ -53,4 +53,4 @@ function updateDashboard() {
                                                                                                 btn.addEventListener("pointerleave", off);
                                                                                                   });
                                                                                                     document.getElementById("interact").addEventListener("click", onInteract);
-                                                                                                    }interface
+                                                                                                    }
