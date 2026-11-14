@@ -11,58 +11,70 @@
             <header>
                 <h1>OUTPOST ZERO</h1>
                     <p>Junior Astronaut Mission Trainer</p>
-                      </header>
+                        <button id="help">How to play</button>
+                          </header>
 
-                        <main>
-                            <div id="game-container"></div>
+                            <main>
+                                <div id="game-wrap">
+                                      <div id="game-container"></div>
 
-                                <section id="dashboard">
-                                      <h2>Mission Control</h2>
-                                            <p>Day <span id="day">1 / 7</span> &nbsp; Science <span id="science">0</span> / 50</p>
+                                            <div id="hud">
+                                                    <span>Power <b id="h-power">10</b></span>
+                                                            <span>Air <b id="h-air">70</b></span>
+                                                                    <span>Food <b id="h-food">70</b></span>
+                                                                            <span>Shield <b id="h-shield">70</b></span>
+                                                                                    <span>Health <b id="h-health">100</b></span>
+                                                                                          </div>
+                                                                                                <div id="toast"></div>
 
-                                                  <div class="meter"><label>Power left today <span id="power">10</span></label><div class="bar"><div id="bar-power"></div></div></div>
-                                                        <div class="meter"><label>Air <span id="air">70</span></label><div class="bar"><div id="bar-air"></div></div></div>
-                                                              <div class="meter"><label>Food <span id="food">70</span></label><div class="bar"><div id="bar-food"></div></div></div>
-                                                                    <div class="meter"><label>Radiation shield <span id="shield">70</span></label><div class="bar"><div id="bar-shield"></div></div></div>
-                                                                          <div class="meter"><label>Crew health <span id="health">100</span></label><div class="bar"><div id="bar-health"></div></div></div>
+                                                                                                      <section id="mobile-controls">
+                                                                                                              <div class="pad">
+                                                                                                                        <button class="move" data-dir="up">&#9650;</button>
+                                                                                                                                  <div class="pad-row">
+                                                                                                                                              <button class="move" data-dir="left">&#9664;</button>
+                                                                                                                                                          <button class="move" data-dir="down">&#9660;</button>
+                                                                                                                                                                      <button class="move" data-dir="right">&#9654;</button>
+                                                                                                                                                                                </div>
+                                                                                                                                                                                        </div>
+                                                                                                                                                                                                <button id="interact">INTERACT</button>
+                                                                                                                                                                                                      </section>
+                                                                                                                                                                                                          </div>
 
-                                                                                <p id="hint"></p>
-                                                                                      <p id="message">Welcome, astronaut! You only get 10 power each day. Spend it wisely.</p>
-                                                                                            <button id="end-day">END DAY</button>
-                                                                                                </section>
-                                                                                                  </main>
+                                                                                                                                                                                                              <section id="dashboard">
+                                                                                                                                                                                                                    <h2>Mission Control</h2>
+                                                                                                                                                                                                                          <p>Day <span id="day">1 / 7</span> &nbsp; Science <span id="science">0</span> / 50</p>
 
-                                                                                                    <section id="mobile-controls">
-                                                                                                        <div class="pad">
-                                                                                                              <button class="move" data-dir="up">&#9650;</button>
-                                                                                                                    <div class="pad-row">
-                                                                                                                            <button class="move" data-dir="left">&#9664;</button>
-                                                                                                                                    <button class="move" data-dir="down">&#9660;</button>
-                                                                                                                                            <button class="move" data-dir="right">&#9654;</button>
-                                                                                                                                                  </div>
-                                                                                                                                                      </div>
-                                                                                                                                                          <button id="interact">INTERACT</button>
-                                                                                                                                                            </section>
+                                                                                                                                                                                                                                <div class="meter"><label>Power left today <span id="power">10</span></label><div class="bar"><div id="bar-power"></div></div></div>
+                                                                                                                                                                                                                                      <div class="meter"><label>Air <span id="air">70</span></label><div class="bar"><div id="bar-air"></div></div></div>
+                                                                                                                                                                                                                                            <div class="meter"><label>Food <span id="food">70</span></label><div class="bar"><div id="bar-food"></div></div></div>
+                                                                                                                                                                                                                                                  <div class="meter"><label>Radiation shield <span id="shield">70</span></label><div class="bar"><div id="bar-shield"></div></div></div>
+                                                                                                                                                                                                                                                        <div class="meter"><label>Crew health <span id="health">100</span></label><div class="bar"><div id="bar-health"></div></div></div>
 
-                                                                                                                                                              <div id="overlay" class="hidden">
-                                                                                                                                                                  <div id="overlay-box">
-                                                                                                                                                                        <h3 id="ov-title"></h3>
-                                                                                                                                                                              <p id="ov-text"></p>
-                                                                                                                                                                                    <p id="ov-source"></p>
-                                                                                                                                                                                          <div id="ov-buttons"></div>
-                                                                                                                                                                                              </div>
-                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                              <p id="hint"></p>
+                                                                                                                                                                                                                                                                    <p id="message">Welcome, astronaut! You only get 10 power each day. Spend it wisely.</p>
+                                                                                                                                                                                                                                                                          <button id="end-day">END DAY</button>
+                                                                                                                                                                                                                                                                              </section>
+                                                                                                                                                                                                                                                                                </main>
 
-                                                                                                                                                                                                  <footer>
-                                                                                                                                                                                                      Storm events are from NASA's DONKI space weather archive (saved copy, not live).
-                                                                                                                                                                                                          Radiation numbers: Chang'e 4 lander (Moon). Power, air and food numbers are simplified for the game.
-                                                                                                                                                                                                            </footer>
+                                                                                                                                                                                                                                                                                  <div id="overlay" class="hidden">
+                                                                                                                                                                                                                                                                                      <div id="overlay-box">
+                                                                                                                                                                                                                                                                                            <h3 id="ov-title"></h3>
+                                                                                                                                                                                                                                                                                                  <p id="ov-text"></p>
+                                                                                                                                                                                                                                                                                                        <p id="ov-source"></p>
+                                                                                                                                                                                                                                                                                                              <div id="ov-buttons"></div>
+                                                                                                                                                                                                                                                                                                                  </div>
+                                                                                                                                                                                                                                                                                                                    </div>
 
-                                                                                                                                                                                                              <script src="js/resources.js"></script>
-                                                                                                                                                                                                                <script src="js/missions.js"></script>
-                                                                                                                                                                                                                  <script src="js/interface.js"></script>
-                                                                                                                                                                                                                    <script src="js/player.js"></script>
-                                                                                                                                                                                                                      <script src="js/world.js"></script>
-                                                                                                                                                                                                                        <script src="js/main.js"></script>
-                                                                                                                                                                                                                        </body>
-                                                                                                                                                                                                                        </html>
+                                                                                                                                                                                                                                                                                                                      <footer>
+                                                                                                                                                                                                                                                                                                                          Storm events are from NASA's DONKI space weather archive (saved copy, not live).
+                                                                                                                                                                                                                                                                                                                              Radiation numbers: Chang'e 4 lander (Moon). Power, air and food numbers are simplified for the game.
+                                                                                                                                                                                                                                                                                                                                </footer>
+
+                                                                                                                                                                                                                                                                                                                                  <script src="js/resources.js"></script>
+                                                                                                                                                                                                                                                                                                                                    <script src="js/missions.js"></script>
+                                                                                                                                                                                                                                                                                                                                      <script src="js/interface.js"></script>
+                                                                                                                                                                                                                                                                                                                                        <script src="js/player.js"></script>
+                                                                                                                                                                                                                                                                                                                                          <script src="js/world.js"></script>
+                                                                                                                                                                                                                                                                                                                                            <script src="js/main.js"></script>
+                                                                                                                                                                                                                                                                                                                                            </body>
+                                                                                                                                                                                                                                                                                                                                            </html>
