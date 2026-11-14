@@ -24,33 +24,56 @@ function updateDashboard() {
                                 }
 
                                 function showOverlay(title, text, source, buttons) {
-                                  document.getElementById("ov-title").textContent = title;
-                                    document.getElementById("ov-text").textContent = text;
-                                      document.getElementById("ov-source").textContent = source;
-                                        const box = document.getElementById("ov-buttons");
-                                          box.innerHTML = "";
-                                            buttons.forEach(b => {
-                                                const btn = document.createElement("button");
-                                                    btn.innerHTML = b.label + (b.note ? "<small>" + b.note + "</small>" : "");
-                                                        btn.addEventListener("click", b.onClick);
-                                                            box.appendChild(btn);
-                                                              });
-                                                                document.getElementById("overlay").classList.remove("hidden");
-                                                                }
-
-                                                                function hideOverlay() {
-                                                                  document.getElementById("overlay").classList.add("hidden");
+                                  clearControls();
+                                    document.getElementById("ov-title").textContent = title;
+                                      document.getElementById("ov-text").textContent = text;
+                                        document.getElementById("ov-source").textContent = source;
+                                          const box = document.getElementById("ov-buttons");
+                                            box.innerHTML = "";
+                                              buttons.forEach(b => {
+                                                  const btn = document.createElement("button");
+                                                      btn.innerHTML = b.label + (b.note ? "<small>" + b.note + "</small>" : "");
+                                                          btn.addEventListener("click", b.onClick);
+                                                              box.appendChild(btn);
+                                                                });
+                                                                  document.getElementById("overlay").classList.remove("hidden");
                                                                   }
 
-                                                                  function setupMobileControls(onInteract) {
-                                                                    document.querySelectorAll(".move").forEach(btn => {
-                                                                        const dir = btn.dataset.dir;
-                                                                            const on = e => { e.preventDefault(); controls[dir] = true; };
-                                                                                const off = e => { e.preventDefault(); controls[dir] = false; };
-                                                                                    btn.addEventListener("pointerdown", on);
-                                                                                        btn.addEventListener("pointerup", off);
-                                                                                            btn.addEventListener("pointercancel", off);
-                                                                                                btn.addEventListener("pointerleave", off);
-                                                                                                  });
-                                                                                                    document.getElementById("interact").addEventListener("click", onInteract);
-                                                                                                    }
+                                                                  function hideOverlay() {
+                                                                    document.getElementById("overlay").classList.add("hidden");
+                                                                    }
+
+                                                                    function clearControls() {
+                                                                      controls.up = controls.down = controls.left = controls.right = false;
+                                                                      }
+
+                                                                      function setupMobileControls(onInteract) {
+                                                                        document.querySelectorAll(".move").forEach(btn => {
+                                                                            const dir = btn.dataset.dir;
+
+                                                                                btn.addEventListener("pointerdown", e => {
+                                                                                      e.preventDefault();
+                                                                                            // capture the finger so we always get the release, even if it slides off the button
+                                                                                                  if (btn.setPointerCapture) btn.setPointerCapture(e.pointerId);
+                                                                                                        controls[dir] = true;
+                                                                                                            });
+
+                                                                                                                const off = e => { e.preventDefault(); controls[dir] = false; };
+                                                                                                                    btn.addEventListener("pointerup", off);
+                                                                                                                        btn.addEventListener("pointercancel", off);
+                                                                                                                            btn.addEventListener("lostpointercapture", off);
+                                                                                                                                btn.addEventListener("pointerleave", off);
+
+                                                                                                                                    // long press can open a menu or select text on some phones
+                                                                                                                                        btn.addEventListener("contextmenu", e => e.preventDefault());
+                                                                                                                                            btn.addEventListener("selectstart", e => e.preventDefault());
+                                                                                                                                              });
+
+                                                                                                                                                // safety net: if anything ends the touch, stop moving
+                                                                                                                                                  ["pointerup", "pointercancel", "touchend", "touchcancel", "blur", "contextmenu"].forEach(ev => {
+                                                                                                                                                      window.addEventListener(ev, clearControls);
+                                                                                                                                                        });
+                                                                                                                                                          document.addEventListener("visibilitychange", clearControls);
+
+                                                                                                                                                            document.getElementById("interact").addEventListener("click", onInteract);
+                                                                                                                                                            }

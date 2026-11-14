@@ -54,82 +54,89 @@ body {
                                             #message { font-size: 13px; line-height: 1.5; min-height: 70px; }
 
                                             button {
-                                              padding: 12px;
-                                                border: none;
-                                                  border-radius: 6px;
-                                                    background: #36a9a0;
-                                                      color: #fff;
-                                                        font-weight: bold;
-                                                          cursor: pointer;
-                                                          }
-                                                          #end-day { width: 100%; }
+                                              -webkit-user-select: none;
+                                                user-select: none;
+                                                  -webkit-touch-callout: none;
+                                                    -webkit-tap-highlight-color: transparent;
+                                                      padding: 12px;
+                                                        border: none;
+                                                          border-radius: 6px;
+                                                            background: #36a9a0;
+                                                              color: #fff;
+                                                                font-weight: bold;
+                                                                  cursor: pointer;
+                                                                  }
+                                                                  #end-day { width: 100%; }
 
-                                                          #mobile-controls {
-                                                            position: absolute;
-                                                              left: 0; right: 0; bottom: 8px;
-                                                                display: none;
-                                                                  justify-content: space-between;
-                                                                    align-items: flex-end;
-                                                                      padding: 0 12px;
-                                                                        pointer-events: none;
-                                                                        }
-                                                                        #mobile-controls button { pointer-events: auto; opacity: 0.7; }
-                                                                        .pad { display: flex; flex-direction: column; align-items: center; }
-                                                                        .pad-row { display: flex; gap: 5px; }
-                                                                        .move { width: 54px; height: 54px; font-size: 18px; touch-action: none; user-select: none; }
-                                                                        #interact { width: 100px; height: 64px; background: #c17a59; }
+                                                                  #mobile-controls {
+                                                                    -webkit-user-select: none;
+                                                                      user-select: none;
+                                                                        touch-action: none;
+                                                                          position: absolute;
+                                                                            left: 0; right: 0; bottom: 8px;
+                                                                              display: none;
+                                                                                justify-content: space-between;
+                                                                                  align-items: flex-end;
+                                                                                    padding: 0 12px;
+                                                                                      pointer-events: none;
+                                                                                      }
+                                                                                      #mobile-controls button { pointer-events: auto; opacity: 0.7; }
+                                                                                      .pad { display: flex; flex-direction: column; align-items: center; }
+                                                                                      .pad-row { display: flex; gap: 5px; }
+                                                                                      .move { width: 54px; height: 54px; font-size: 18px; touch-action: none; }
+                                                                                      #interact { width: 100px; height: 64px; background: #c17a59; }
 
-                                                                        footer { padding: 14px; color: #9bbbd3; font-size: 12px; max-width: 800px; margin: auto; }
+                                                                                      footer { padding: 14px; color: #9bbbd3; font-size: 12px; max-width: 800px; margin: auto; }
 
-                                                                        #overlay {
-                                                                          position: fixed; inset: 0;
-                                                                            background: rgba(0, 0, 0, 0.7);
-                                                                              display: flex; align-items: center; justify-content: center;
-                                                                                z-index: 10;
-                                                                                }
-                                                                                #overlay.hidden { display: none; }
-                                                                                #overlay-box {
-                                                                                  background: #20344c; border: 2px solid #f3c76a; border-radius: 8px;
-                                                                                    padding: 18px; max-width: 460px; width: 90%; text-align: left;
-                                                                                    }
-                                                                                    #ov-text { white-space: pre-line; line-height: 1.5; }
-                                                                                    #ov-source { color: #9bbbd3; font-size: 12px; }
-                                                                                    #ov-buttons button { display: block; width: 100%; margin-top: 8px; text-align: left; }
-                                                                                    #ov-buttons small { display: block; font-weight: normal; color: #dbe7f0; }
+                                                                                      #overlay {
+                                                                                        position: fixed; inset: 0;
+                                                                                          background: rgba(0, 0, 0, 0.7);
+                                                                                            display: flex; align-items: center; justify-content: center;
+                                                                                              z-index: 10;
+                                                                                              }
+                                                                                              #overlay.hidden { display: none; }
+                                                                                              #overlay-box {
+                                                                                                background: #20344c; border: 2px solid #f3c76a; border-radius: 8px;
+                                                                                                  padding: 18px; max-width: 460px; width: 90%; text-align: left;
+                                                                                                  }
+                                                                                                  #ov-text { white-space: pre-line; line-height: 1.5; }
+                                                                                                  #ov-source { color: #9bbbd3; font-size: 12px; }
+                                                                                                  #ov-buttons button { display: block; width: 100%; margin-top: 8px; text-align: left; }
+                                                                                                  #ov-buttons small { display: block; font-weight: normal; color: #dbe7f0; }
 
-                                                                                    @media (max-width: 900px) {
-                                                                                      html, body { height: 100%; overflow: hidden; }
-                                                                                        body { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
+                                                                                                  @media (max-width: 900px) {
+                                                                                                    html, body { height: 100%; overflow: hidden; }
+                                                                                                      body { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
 
-                                                                                          header { display: flex; justify-content: space-between; align-items: center; padding: 4px 10px; }
-                                                                                            header h1 { font-size: 16px; margin: 0; letter-spacing: 2px; }
-                                                                                              header p { display: none; }
-                                                                                                #help { margin: 0; }
-                                                                                                  footer { display: none; }
+                                                                                                        header { display: flex; justify-content: space-between; align-items: center; padding: 4px 10px; }
+                                                                                                          header h1 { font-size: 16px; margin: 0; letter-spacing: 2px; }
+                                                                                                            header p { display: none; }
+                                                                                                              #help { margin: 0; }
+                                                                                                                footer { display: none; }
 
-                                                                                                    /* game on top, mission control underneath, all in one screen */
-                                                                                                      main { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 0; }
-                                                                                                        #game-wrap { flex: 1; min-height: 0; width: 100%; max-width: none; }
-                                                                                                          #game-container { height: 100%; border: none; border-radius: 0; }
-                                                                                                            #mobile-controls { display: flex; }
+                                                                                                                  /* game on top, mission control underneath, all in one screen */
+                                                                                                                    main { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 0; }
+                                                                                                                      #game-wrap { flex: 1; min-height: 0; width: 100%; max-width: none; }
+                                                                                                                        #game-container { height: 100%; border: none; border-radius: 0; }
+                                                                                                                          #mobile-controls { display: flex; }
 
-                                                                                                              #dashboard { width: 100%; padding: 6px 10px 8px; border-radius: 0; max-height: 46vh; max-height: 46dvh; overflow-y: auto; }
-                                                                                                                #dashboard h2 { font-size: 15px; margin: 0 0 2px; }
-                                                                                                                  #dashboard p { margin: 2px 0; font-size: 13px; }
-                                                                                                                    #meters { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
-                                                                                                                      .meter { margin: 3px 0; font-size: 12px; }
-                                                                                                                        .bar { height: 8px; }
-                                                                                                                          #hint { font-size: 12px; min-height: 0; margin: 4px 0 2px; }
-                                                                                                                            #message { font-size: 12px; line-height: 1.35; min-height: 32px; margin: 2px 0 6px; }
-                                                                                                                              #end-day { padding: 9px; }
-                                                                                                                                .move { width: 46px; height: 46px; font-size: 16px; }
-                                                                                                                                  #interact { width: 86px; height: 52px; font-size: 12px; }
-                                                                                                                                    #overlay-box { max-height: 85vh; overflow-y: auto; }
-                                                                                                                                    }
+                                                                                                                            #dashboard { width: 100%; padding: 6px 10px 8px; border-radius: 0; max-height: 46vh; max-height: 46dvh; overflow-y: auto; }
+                                                                                                                              #dashboard h2 { font-size: 15px; margin: 0 0 2px; }
+                                                                                                                                #dashboard p { margin: 2px 0; font-size: 13px; }
+                                                                                                                                  #meters { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+                                                                                                                                    .meter { margin: 3px 0; font-size: 12px; }
+                                                                                                                                      .bar { height: 8px; }
+                                                                                                                                        #hint { font-size: 12px; min-height: 0; margin: 4px 0 2px; }
+                                                                                                                                          #message { font-size: 12px; line-height: 1.35; min-height: 32px; margin: 2px 0 6px; }
+                                                                                                                                            #end-day { padding: 9px; }
+                                                                                                                                              .move { width: 46px; height: 46px; font-size: 16px; }
+                                                                                                                                                #interact { width: 86px; height: 52px; font-size: 12px; }
+                                                                                                                                                  #overlay-box { max-height: 85vh; overflow-y: auto; }
+                                                                                                                                                  }
 
-                                                                                                                                    /* phone held sideways: game on the left, mission control on the right */
-                                                                                                                                    @media (max-width: 900px) and (orientation: landscape) {
-                                                                                                                                      main { flex-direction: row; }
-                                                                                                                                        #dashboard { width: 260px; max-height: none; height: 100%; flex: none; }
-                                                                                                                                          #meters { grid-template-columns: 1fr; }
-                                                                                                                                          }
+                                                                                                                                                  /* phone held sideways: game on the left, mission control on the right */
+                                                                                                                                                  @media (max-width: 900px) and (orientation: landscape) {
+                                                                                                                                                    main { flex-direction: row; }
+                                                                                                                                                      #dashboard { width: 260px; max-height: none; height: 100%; flex: none; }
+                                                                                                                                                        #meters { grid-template-columns: 1fr; }
+                                                                                                                                                        }
