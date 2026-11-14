@@ -1,69 +1,163 @@
-// world.js - terrain, buildings and what each one does
-// cost = power needed to use it
+// world.js - terrain, buildings, locked areas and what each building does
+// cost = power needed to use it, stage = the stage that opens it (0 = from the start)
 
 const BUILDINGS = [
-  { name: "HABITAT", x: 170, y: 155, colour: 0x397fa9, cost: 2, job: "Life support: +15 air" },
-    { name: "POWER ARRAY", x: 480, y: 145, colour: 0xc9a84c, cost: 0, job: "Check the power forecast" },
-      { name: "GREENHOUSE", x: 790, y: 155, colour: 0x438d66, cost: 2, job: "Grow food: +14 food" },
-        { name: "SCIENCE LAB", x: 260, y: 465, colour: 0x8064ad, cost: 3, job: "Experiment: +10 science" },
-          { name: "SUPPLY DEPOT", x: 700, y: 465, colour: 0xb87555, cost: 2, job: "Pile regolith: +16 shield" }
+  { name: "HABITAT", x: 170, y: 155, colour: 0x397fa9, cost: 2, stage: 0, job: "Life support: +15 air" },
+    { name: "POWER ARRAY", x: 480, y: 145, colour: 0xc9a84c, cost: 1, stage: 0, job: "Call Earth for advice" },
+      { name: "SUPPLY DEPOT", x: 700, y: 465, colour: 0xb87555, cost: 2, stage: 0, job: "Pile regolith: +16 shield" },
+        { name: "GREENHOUSE", x: 790, y: 155, colour: 0x438d66, cost: 2, stage: 1, job: "Grow food: +14 food" },
+          { name: "SCIENCE LAB", x: 260, y: 465, colour: 0x8064ad, cost: 3, stage: 2, job: "Experiment: +10 science" }
           ];
 
-          function buildWorld(scene) {
-            scene.physics.world.setBounds(0, 0, 960, 640);
-              scene.cameras.main.setBackgroundColor("#777d91");
+          // dark rectangles that cover the areas you haven't unlocked yet
+          const FOG_AREAS = {
+            "GREENHOUSE": { x: 790, y: 160, w: 270, h: 200 },
+              "SCIENCE LAB": { x: 260, y: 490, w: 270, h: 200 }
+              };
 
-                const g = scene.add.graphics();
-                  for (let i = 0; i < 100; i++) {
-                      g.fillStyle(0x969cab, 0.55);
-                          g.fillCircle(Phaser.Math.Between(15, 945), Phaser.Math.Between(15, 625), Phaser.Math.Between(2, 7));
-                            }
-                              // paths between the buildings
-                                g.lineStyle(35, 0x9ca4b2, 0.7);
-                                  g.strokeLineShape(new Phaser.Geom.Line(480, 220, 480, 410));
-                                    g.strokeLineShape(new Phaser.Geom.Line(170, 220, 790, 220));
-                                      g.strokeLineShape(new Phaser.Geom.Line(260, 410, 700, 410));
-                                        // landing pad in the middle
-                                          g.lineStyle(4, 0xe1d5a4);
-                                            g.strokeCircle(480, 320, 70);
+              let radioBusy = false;
 
-                                              scene.solids = [];
-                                                BUILDINGS.forEach(b => {
-                                                    const body = scene.add.rectangle(b.x, b.y, 112, 76, b.colour);
-                                                        scene.physics.add.existing(body, true);
-                                                            scene.solids.push(body);
-                                                                scene.add.rectangle(b.x, b.y - 26, 88, 10, 0xe8e9ed);   // roof
-                                                                    scene.add.rectangle(b.x, b.y + 18, 20, 32, 0x273c52);   // door
-                                                                        scene.add.text(b.x, b.y + 55, b.name, {
-                                                                              fontSize: "13px", color: "#ffffff", backgroundColor: "#26364b", padding: { x: 5, y: 4 }
-                                                                                  }).setOrigin(0.5);
-                                                                                    });
-                                                                                    }
+              function buildWorld(scene) {
+                scene.physics.world.setBounds(0, 0, 960, 640);
+                  scene.cameras.main.setBackgroundColor("#777d91");
 
-                                                                                    function nearestBuilding(player) {
-                                                                                      let best = null, bestDist = 110;
-                                                                                        BUILDINGS.forEach(b => {
-                                                                                            const d = Phaser.Math.Distance.Between(player.x, player.y, b.x, b.y);
-                                                                                                if (d < bestDist) { bestDist = d; best = b; }
-                                                                                                  });
-                                                                                                    return best;
-                                                                                                    }
+                    const g = scene.add.graphics();
+                      for (let i = 0; i < 100; i++) {
+                          g.fillStyle(0x969cab, 0.55);
+                              g.fillCircle(Phaser.Math.Between(15, 945), Phaser.Math.Between(15, 625), Phaser.Math.Between(2, 7));
+                                }
+                                  // paths between the buildings
+                                    g.lineStyle(35, 0x9ca4b2, 0.7);
+                                      g.strokeLineShape(new Phaser.Geom.Line(480, 220, 480, 410));
+                                        g.strokeLineShape(new Phaser.Geom.Line(170, 220, 790, 220));
+                                          g.strokeLineShape(new Phaser.Geom.Line(260, 410, 700, 410));
+                                            // landing pad in the middle
+                                              g.lineStyle(4, 0xe1d5a4);
+                                                g.strokeCircle(480, 320, 70);
 
-                                                                                                    function useBuilding(b) {
-                                                                                                      if (b.name === "POWER ARRAY") {
-                                                                                                          message("Power left today: " + state.power + ". Your shield blocks " + state.shield +
-                                                                                                                "% of radiation. Panels only work in sunlight, so power is limited each day.");
-                                                                                                                    return;
-                                                                                                                      }
-                                                                                                                        if (!spendPower(b.cost)) {
-                                                                                                                            message("Not enough power for the " + b.name.toLowerCase() + " (needs " + b.cost + ").");
-                                                                                                                                return;
-                                                                                                                                  }
-                                                                                                                                    if (b.name === "HABITAT") state.air = clamp(state.air + 15);
-                                                                                                                                      if (b.name === "GREENHOUSE") state.food = clamp(state.food + 14);
-                                                                                                                                        if (b.name === "SCIENCE LAB") state.science += 10;
-                                                                                                                                          if (b.name === "SUPPLY DEPOT") state.shield = clamp(state.shield + 16);
+                                                  scene.solids = [];
+                                                    BUILDINGS.forEach(b => {
+                                                        const body = scene.add.rectangle(b.x, b.y, 112, 76, b.colour);
+                                                            scene.physics.add.existing(body, true);
+                                                                scene.solids.push(body);
+                                                                    scene.add.rectangle(b.x, b.y - 26, 88, 10, 0xe8e9ed);   // roof
+                                                                        scene.add.rectangle(b.x, b.y + 18, 20, 32, 0x273c52);   // door
+                                                                            scene.add.text(b.x, b.y + 55, b.name, {
+                                                                                  fontSize: "13px", color: "#ffffff", backgroundColor: "#26364b", padding: { x: 5, y: 4 }
+                                                                                      }).setOrigin(0.5);
+                                                                                        });
 
-                                                                                                                                            message(b.job + " (-" + b.cost + " power). " + FACTS[b.name]);
-                                                                                                                                              updateDashboard();
-                                                                                                                                              }
+                                                                                          // locked areas (drawn on top of the buildings, and they block the astronaut)
+                                                                                            scene.fogs = {};
+                                                                                              for (const name in FOG_AREAS) {
+                                                                                                  const f = FOG_AREAS[name];
+                                                                                                      const b = BUILDINGS.find(x => x.name === name);
+                                                                                                          const rect = scene.add.rectangle(f.x, f.y, f.w, f.h, 0x0b1020, 0.93).setDepth(10);
+                                                                                                              scene.physics.add.existing(rect, true);
+                                                                                                                  const label = scene.add.text(f.x, f.y, "LOCKED\nFinish Stage " + b.stage, {
+                                                                                                                        fontSize: "15px", color: "#9bbbd3", align: "center"
+                                                                                                                            }).setOrigin(0.5).setDepth(11);
+                                                                                                                                scene.fogs[name] = { rect: rect, label: label };
+                                                                                                                                    scene.solids.push(rect);
+                                                                                                                                      }
+                                                                                                                                      }
+
+                                                                                                                                      // open the areas that the current stage allows
+                                                                                                                                      function applyUnlocks(scene, animate) {
+                                                                                                                                        BUILDINGS.forEach(b => {
+                                                                                                                                            const fog = scene.fogs[b.name];
+                                                                                                                                                if (!fog || b.stage > state.stage) return;
+                                                                                                                                                    delete scene.fogs[b.name];
+                                                                                                                                                        scene.physics.world.disableBody(fog.rect.body);   // the astronaut can walk in now
+                                                                                                                                                            if (animate) {
+                                                                                                                                                                  scene.tweens.add({
+                                                                                                                                                                          targets: [fog.rect, fog.label], alpha: 0, duration: 1200,
+                                                                                                                                                                                  onComplete: () => { fog.rect.destroy(); fog.label.destroy(); }
+                                                                                                                                                                                        });
+                                                                                                                                                                                            } else {
+                                                                                                                                                                                                  fog.rect.destroy();
+                                                                                                                                                                                                        fog.label.destroy();
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                              });
+                                                                                                                                                                                                              }
+
+                                                                                                                                                                                                              function nearestBuilding(player) {
+                                                                                                                                                                                                                let best = null, bestDist = 110;
+                                                                                                                                                                                                                  BUILDINGS.forEach(b => {
+                                                                                                                                                                                                                      if (b.stage > state.stage) return;   // still locked
+                                                                                                                                                                                                                          const d = Phaser.Math.Distance.Between(player.x, player.y, b.x, b.y);
+                                                                                                                                                                                                                              if (d < bestDist) { bestDist = d; best = b; }
+                                                                                                                                                                                                                                });
+                                                                                                                                                                                                                                  return best;
+                                                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                                                  // little text that floats up and fades, so you can see what just happened
+                                                                                                                                                                                                                                  function floatText(scene, text, x, y, colour) {
+                                                                                                                                                                                                                                    const t = scene.add.text(x, y, text, {
+                                                                                                                                                                                                                                        fontSize: "18px", fontStyle: "bold", color: colour, stroke: "#101827", strokeThickness: 4
+                                                                                                                                                                                                                                          }).setOrigin(0.5).setDepth(20);
+                                                                                                                                                                                                                                            scene.tweens.add({ targets: t, y: y - 45, alpha: 0, duration: 1500, onComplete: () => t.destroy() });
+                                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                                            // yellow outline and a label above the building you are standing next to
+                                                                                                                                                                                                                                            function showNearby(scene, b) {
+                                                                                                                                                                                                                                              if (!scene.ring) {
+                                                                                                                                                                                                                                                  scene.ring = scene.add.rectangle(0, 0, 130, 92).setStrokeStyle(4, 0xffd77a).setDepth(15);
+                                                                                                                                                                                                                                                      scene.ring.isFilled = false;
+                                                                                                                                                                                                                                                          scene.tweens.add({ targets: scene.ring, alpha: 0.35, duration: 500, yoyo: true, repeat: -1 });
+                                                                                                                                                                                                                                                              scene.prompt = scene.add.text(0, 0, "", {
+                                                                                                                                                                                                                                                                    fontSize: "15px", fontStyle: "bold", color: "#ffd77a", backgroundColor: "#101827",
+                                                                                                                                                                                                                                                                          padding: { x: 7, y: 5 }, align: "center"
+                                                                                                                                                                                                                                                                              }).setOrigin(0.5).setDepth(20);
+                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                  scene.ring.setVisible(!!b);
+                                                                                                                                                                                                                                                                                    scene.prompt.setVisible(!!b);
+                                                                                                                                                                                                                                                                                      if (!b) return;
+
+                                                                                                                                                                                                                                                                                        scene.ring.setPosition(b.x, b.y);
+                                                                                                                                                                                                                                                                                          const broke = state.power < b.cost;
+                                                                                                                                                                                                                                                                                            scene.prompt.setPosition(b.x, b.y - 62);
+                                                                                                                                                                                                                                                                                              scene.prompt.setText(broke ? "Not enough power" : b.job + (b.cost ? "  (-" + b.cost + " power)" : ""));
+                                                                                                                                                                                                                                                                                                scene.prompt.setColor(broke ? "#ff8a80" : "#ffd77a");
+                                                                                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                                                                                function useBuilding(b) {
+                                                                                                                                                                                                                                                                                                  if (b.name === "POWER ARRAY") {
+                                                                                                                                                                                                                                                                                                      if (radioBusy) {
+                                                                                                                                                                                                                                                                                                            message("Still waiting for Earth's reply...");
+                                                                                                                                                                                                                                                                                                                  return;
+                                                                                                                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                                                                                                                          if (!spendPower(b.cost)) {
+                                                                                                                                                                                                                                                                                                                                showBanner("Not enough power for the radio (needs " + b.cost + ")", false);
+                                                                                                                                                                                                                                                                                                                                      return;
+                                                                                                                                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                                                                                                                                              radioBusy = true;
+                                                                                                                                                                                                                                                                                                                                                  updateDashboard();
+                                                                                                                                                                                                                                                                                                                                                      floatText(gameScene, "-" + b.cost + " power", b.x, b.y - 30, "#ff8a80");
+                                                                                                                                                                                                                                                                                                                                                          showBanner("Calling Earth... wait for the reply (radio delay)", true);
+                                                                                                                                                                                                                                                                                                                                                              message("Message sent to Earth. The radio takes about 1.3 seconds each way, so wait for the reply...");
+                                                                                                                                                                                                                                                                                                                                                                  setTimeout(() => {
+                                                                                                                                                                                                                                                                                                                                                                        radioBusy = false;
+                                                                                                                                                                                                                                                                                                                                                                              showBanner("Earth replied! Read the message below.", true);
+                                                                                                                                                                                                                                                                                                                                                                                    message(earthAdvice());
+                                                                                                                                                                                                                                                                                                                                                                                        }, 2600);
+                                                                                                                                                                                                                                                                                                                                                                                            return;
+                                                                                                                                                                                                                                                                                                                                                                                              }
+
+                                                                                                                                                                                                                                                                                                                                                                                                if (!spendPower(b.cost)) {
+                                                                                                                                                                                                                                                                                                                                                                                                    showBanner("Not enough power for the " + b.name.toLowerCase() + " (needs " + b.cost + ")", false);
+                                                                                                                                                                                                                                                                                                                                                                                                        message("Not enough power left today. Power refills tomorrow, so choose what matters most.");
+                                                                                                                                                                                                                                                                                                                                                                                                            return;
+                                                                                                                                                                                                                                                                                                                                                                                                              }
+                                                                                                                                                                                                                                                                                                                                                                                                                let gain = "";
+                                                                                                                                                                                                                                                                                                                                                                                                                  if (b.name === "HABITAT") { state.air = clamp(state.air + 15); gain = "+15 air"; }
+                                                                                                                                                                                                                                                                                                                                                                                                                    if (b.name === "GREENHOUSE") { state.food = clamp(state.food + 14); gain = "+14 food"; }
+                                                                                                                                                                                                                                                                                                                                                                                                                      if (b.name === "SCIENCE LAB") { state.science += 10; gain = "+10 science"; }
+                                                                                                                                                                                                                                                                                                                                                                                                                        if (b.name === "SUPPLY DEPOT") { state.shield = clamp(state.shield + 16); gain = "+16 shield"; }
+
+                                                                                                                                                                                                                                                                                                                                                                                                                          floatText(gameScene, gain, b.x, b.y - 30, "#7cfc9a");
+                                                                                                                                                                                                                                                                                                                                                                                                                            floatText(gameScene, "-" + b.cost + " power", b.x, b.y - 8, "#ff8a80");
+                                                                                                                                                                                                                                                                                                                                                                                                                              showBanner(b.name + ": " + gain + ", -" + b.cost + " power", true);
+                                                                                                                                                                                                                                                                                                                                                                                                                                message(b.job + " (-" + b.cost + " power). " + FACTS[b.name]);
+                                                                                                                                                                                                                                                                                                                                                                                                                                  updateDashboard();
+                                                                                                                                                                                                                                                                                                                                                                                                                                  }

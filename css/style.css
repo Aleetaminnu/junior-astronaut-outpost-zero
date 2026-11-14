@@ -50,93 +50,142 @@ body {
                                             .bar div { height: 100%; width: 50%; background: #36a9a0; }
                                             .bar div.low { background: #d9534f; }
 
-                                            #hint { color: #f3c76a; font-size: 13px; min-height: 18px; }
-                                            #message { font-size: 13px; line-height: 1.5; min-height: 70px; }
+                                            #goal { color: #cfe3f1; font-size: 13px; font-style: italic; margin: 2px 0 8px; }
+                                            #weather { color: #9bbbd3; font-size: 12px; margin: 4px 0; }
+                                            #hint {
+                                              background: #3a3320; border: 1px solid #f3c76a; border-radius: 6px;
+                                                padding: 6px 8px; color: #ffd77a; font-size: 14px; font-weight: bold; min-height: 34px;
+                                                }
+                                                #message { font-size: 13px; line-height: 1.5; min-height: 70px; }
 
-                                            button {
-                                              -webkit-user-select: none;
-                                                user-select: none;
-                                                  -webkit-touch-callout: none;
-                                                    -webkit-tap-highlight-color: transparent;
-                                                      padding: 12px;
-                                                        border: none;
-                                                          border-radius: 6px;
-                                                            background: #36a9a0;
-                                                              color: #fff;
-                                                                font-weight: bold;
-                                                                  cursor: pointer;
-                                                                  }
-                                                                  #end-day { width: 100%; }
+                                                button {
+                                                  -webkit-user-select: none;
+                                                    user-select: none;
+                                                      -webkit-touch-callout: none;
+                                                        -webkit-tap-highlight-color: transparent;
+                                                          padding: 12px;
+                                                            border: none;
+                                                              border-radius: 6px;
+                                                                background: #36a9a0;
+                                                                  color: #fff;
+                                                                    font-weight: bold;
+                                                                      cursor: pointer;
+                                                                      }
+                                                                      #end-day { width: 100%; }
 
-                                                                  #mobile-controls {
-                                                                    -webkit-user-select: none;
-                                                                      user-select: none;
-                                                                        touch-action: none;
-                                                                          position: absolute;
-                                                                            left: 0; right: 0; bottom: 8px;
-                                                                              display: none;
-                                                                                justify-content: space-between;
-                                                                                  align-items: flex-end;
-                                                                                    padding: 0 12px;
-                                                                                      pointer-events: none;
-                                                                                      }
-                                                                                      #mobile-controls button { pointer-events: auto; opacity: 0.7; }
-                                                                                      .pad { display: flex; flex-direction: column; align-items: center; }
-                                                                                      .pad-row { display: flex; gap: 5px; }
-                                                                                      .move { width: 54px; height: 54px; font-size: 18px; touch-action: none; }
-                                                                                      #interact { width: 100px; height: 64px; background: #c17a59; }
+                                                                      #mobile-controls {
+                                                                        -webkit-user-select: none;
+                                                                          user-select: none;
+                                                                            touch-action: none;
+                                                                              position: absolute;
+                                                                                left: 0; right: 0; bottom: 8px;
+                                                                                  display: none;
+                                                                                    justify-content: space-between;
+                                                                                      align-items: flex-end;
+                                                                                        padding: 0 12px;
+                                                                                          pointer-events: none;
+                                                                                          }
+                                                                                          #mobile-controls button { pointer-events: auto; opacity: 0.7; }
+                                                                                          #joy {
+                                                                                            position: relative;
+                                                                                              width: 120px; height: 120px;
+                                                                                                border-radius: 50%;
+                                                                                                  background: rgba(255, 255, 255, 0.12);
+                                                                                                    border: 2px solid rgba(255, 255, 255, 0.5);
+                                                                                                      pointer-events: auto;
+                                                                                                        touch-action: none;
+                                                                                                        }
+                                                                                                        #joy-knob {
+                                                                                                          position: absolute; left: 50%; top: 50%;
+                                                                                                            width: 52px; height: 52px; margin: -26px 0 0 -26px;
+                                                                                                              border-radius: 50%;
+                                                                                                                background: rgba(255, 255, 255, 0.55);
+                                                                                                                  pointer-events: none;
+                                                                                                                  }
+                                                                                                                  #interact { width: 112px; height: 72px; background: #c17a59; font-size: 13px; line-height: 1.25; opacity: 0.7; }
+                                                                                                                  #interact.ready { opacity: 1; box-shadow: 0 0 0 3px #ffd77a; animation: pulse 1s infinite; }
+                                                                                                                  @keyframes pulse { 50% { box-shadow: 0 0 0 9px rgba(255, 215, 122, 0.25); } }
 
-                                                                                      footer { padding: 14px; color: #9bbbd3; font-size: 12px; max-width: 800px; margin: auto; }
+                                                                                                                  #banner {
+                                                                                                                    position: absolute; top: 58px; left: 50%; transform: translateX(-50%);
+                                                                                                                      max-width: 92%; padding: 8px 14px; z-index: 5;
+                                                                                                                        background: rgba(16, 24, 39, 0.94); border: 2px solid #4ade80; border-radius: 8px;
+                                                                                                                          font-weight: bold; font-size: 16px; text-align: center;
+                                                                                                                            opacity: 0; pointer-events: none; transition: opacity 0.25s;
+                                                                                                                            }
+                                                                                                                            #banner.show { opacity: 1; }
+                                                                                                                            #banner.bad { border-color: #f87171; }
 
-                                                                                      #overlay {
-                                                                                        position: fixed; inset: 0;
-                                                                                          background: rgba(0, 0, 0, 0.7);
-                                                                                            display: flex; align-items: center; justify-content: center;
-                                                                                              z-index: 10;
-                                                                                              }
-                                                                                              #overlay.hidden { display: none; }
-                                                                                              #overlay-box {
-                                                                                                background: #20344c; border: 2px solid #f3c76a; border-radius: 8px;
-                                                                                                  padding: 18px; max-width: 460px; width: 90%; text-align: left;
-                                                                                                  }
-                                                                                                  #ov-text { white-space: pre-line; line-height: 1.5; }
-                                                                                                  #ov-source { color: #9bbbd3; font-size: 12px; }
-                                                                                                  #ov-buttons button { display: block; width: 100%; margin-top: 8px; text-align: left; }
-                                                                                                  #ov-buttons small { display: block; font-weight: normal; color: #dbe7f0; }
+                                                                                                                            #map-btn {
+                                                                                                                              position: absolute; top: 8px; right: 8px; z-index: 6;
+                                                                                                                                width: 44px; height: 44px; padding: 0;
+                                                                                                                                  background: rgba(16, 24, 39, 0.85); border: 2px solid #9bbbd3;
+                                                                                                                                  }
 
-                                                                                                  @media (max-width: 900px) {
-                                                                                                    html, body { height: 100%; overflow: hidden; }
-                                                                                                      body { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
+                                                                                                                                  #ov-extra { margin: 8px 0; }
+                                                                                                                                  #ov-extra svg { width: 100%; display: block; border-radius: 8px; }
+                                                                                                                                  .legend-row { font-size: 13px; margin: 4px 0; }
+                                                                                                                                  .legend-row b { display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; border-radius: 50%; background: #ffd77a; color: #101827; margin-right: 6px; }
+                                                                                                                                  .legend-row.locked { color: #8a96b8; }
 
-                                                                                                        header { display: flex; justify-content: space-between; align-items: center; padding: 4px 10px; }
-                                                                                                          header h1 { font-size: 16px; margin: 0; letter-spacing: 2px; }
-                                                                                                            header p { display: none; }
-                                                                                                              #help { margin: 0; }
-                                                                                                                footer { display: none; }
+                                                                                                                                  .meter em { font-style: normal; font-weight: bold; margin-left: 5px; }
+                                                                                                                                  .meter em.up { color: #4ade80; }
+                                                                                                                                  .meter em.down { color: #f87171; }
 
-                                                                                                                  /* game on top, mission control underneath, all in one screen */
-                                                                                                                    main { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 0; }
-                                                                                                                      #game-wrap { flex: 1; min-height: 0; width: 100%; max-width: none; }
-                                                                                                                        #game-container { height: 100%; border: none; border-radius: 0; }
-                                                                                                                          #mobile-controls { display: flex; }
+                                                                                                                                  footer { padding: 14px; color: #9bbbd3; font-size: 12px; max-width: 800px; margin: auto; }
 
-                                                                                                                            #dashboard { width: 100%; padding: 6px 10px 8px; border-radius: 0; max-height: 46vh; max-height: 46dvh; overflow-y: auto; }
-                                                                                                                              #dashboard h2 { font-size: 15px; margin: 0 0 2px; }
-                                                                                                                                #dashboard p { margin: 2px 0; font-size: 13px; }
-                                                                                                                                  #meters { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
-                                                                                                                                    .meter { margin: 3px 0; font-size: 12px; }
-                                                                                                                                      .bar { height: 8px; }
-                                                                                                                                        #hint { font-size: 12px; min-height: 0; margin: 4px 0 2px; }
-                                                                                                                                          #message { font-size: 12px; line-height: 1.35; min-height: 32px; margin: 2px 0 6px; }
-                                                                                                                                            #end-day { padding: 9px; }
-                                                                                                                                              .move { width: 46px; height: 46px; font-size: 16px; }
-                                                                                                                                                #interact { width: 86px; height: 52px; font-size: 12px; }
-                                                                                                                                                  #overlay-box { max-height: 85vh; overflow-y: auto; }
-                                                                                                                                                  }
+                                                                                                                                  #overlay {
+                                                                                                                                    position: fixed; inset: 0;
+                                                                                                                                      background: rgba(0, 0, 0, 0.7);
+                                                                                                                                        display: flex; align-items: center; justify-content: center;
+                                                                                                                                          z-index: 10;
+                                                                                                                                          }
+                                                                                                                                          #overlay.hidden { display: none; }
+                                                                                                                                          #overlay-box {
+                                                                                                                                            background: #20344c; border: 2px solid #f3c76a; border-radius: 8px;
+                                                                                                                                              padding: 18px; max-width: 460px; width: 90%; text-align: left;
+                                                                                                                                              }
+                                                                                                                                              #ov-text { white-space: pre-line; line-height: 1.5; }
+                                                                                                                                              #ov-source { color: #9bbbd3; font-size: 12px; }
+                                                                                                                                              #ov-buttons button { display: block; width: 100%; margin-top: 8px; text-align: left; }
+                                                                                                                                              #ov-buttons small { display: block; font-weight: normal; color: #dbe7f0; }
 
-                                                                                                                                                  /* phone held sideways: game on the left, mission control on the right */
-                                                                                                                                                  @media (max-width: 900px) and (orientation: landscape) {
-                                                                                                                                                    main { flex-direction: row; }
-                                                                                                                                                      #dashboard { width: 260px; max-height: none; height: 100%; flex: none; }
-                                                                                                                                                        #meters { grid-template-columns: 1fr; }
-                                                                                                                                                        }
+                                                                                                                                              @media (max-width: 900px) {
+                                                                                                                                                html, body { height: 100%; overflow: hidden; }
+                                                                                                                                                  body { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
+
+                                                                                                                                                    header { display: flex; justify-content: space-between; align-items: center; padding: 4px 10px; }
+                                                                                                                                                      header h1 { font-size: 16px; margin: 0; letter-spacing: 2px; }
+                                                                                                                                                        header p { display: none; }
+                                                                                                                                                          #help { margin: 0; }
+                                                                                                                                                            footer { display: none; }
+
+                                                                                                                                                              /* game on top, mission control underneath, all in one screen */
+                                                                                                                                                                main { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 0; }
+                                                                                                                                                                  #game-wrap { flex: 1; min-height: 0; width: 100%; max-width: none; }
+                                                                                                                                                                    #game-container { height: 100%; border: none; border-radius: 0; }
+                                                                                                                                                                      #mobile-controls { display: flex; }
+
+                                                                                                                                                                        #dashboard { width: 100%; padding: 6px 10px 8px; border-radius: 0; max-height: 46vh; max-height: 46dvh; overflow-y: auto; }
+                                                                                                                                                                          #dashboard h2 { font-size: 15px; margin: 0 0 2px; }
+                                                                                                                                                                            #dashboard p { margin: 2px 0; font-size: 13px; }
+                                                                                                                                                                              #meters { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+                                                                                                                                                                                .meter { margin: 3px 0; font-size: 12px; }
+                                                                                                                                                                                  .bar { height: 8px; }
+                                                                                                                                                                                    #goal { font-size: 12px; margin: 2px 0 4px; }
+                                                                                                                                                                                      #weather { font-size: 11px; margin: 2px 0; }
+                                                                                                                                                                                        #hint { font-size: 12px; min-height: 0; margin: 4px 0 2px; padding: 4px 6px; }
+                                                                                                                                                                                          #message { font-size: 12px; line-height: 1.35; min-height: 32px; margin: 2px 0 6px; }
+                                                                                                                                                                                            #end-day { padding: 9px; }
+                                                                                                                                                                                              #joy { width: 104px; height: 104px; }
+                                                                                                                                                                                                #interact { width: 96px; height: 62px; font-size: 12px; }
+                                                                                                                                                                                                  #banner { font-size: 14px; top: 54px; }
+                                                                                                                                                                                                    #overlay-box { max-height: 85vh; overflow-y: auto; }
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    /* phone held sideways: game on the left, mission control on the right */
+                                                                                                                                                                                                    @media (max-width: 900px) and (orientation: landscape) {
+                                                                                                                                                                                                      main { flex-direction: row; }
+                                                                                                                                                                                                        #dashboard { width: 260px; max-height: none; height: 100%; flex: none; }
+                                                                                                                                                                                                          #meters { grid-template-columns: 1fr; }
+                                                                                                                                                                                                          }
