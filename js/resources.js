@@ -3,7 +3,7 @@
 const DAYS = 7;
 const SCIENCE_GOAL = 50;
 const DAILY_POWER = 10;
-const MOON_RADIATION = 8;   // health lost per sol with no shield at all
+const MOON_RADIATION = 8;   // health lost per day with no shield at all
 
 const state = {
   day: 1,
@@ -49,7 +49,7 @@ const state = {
                                                                                                     return notes.join(" ");
                                                                                                     }
 
-                                                                                                    // the sol is over: things wear down, radiation hits
+                                                                                                    // the day is over: things wear down, radiation hits
                                                                                                     function endDay() {
                                                                                                       state.air = clamp(state.air - 12);
                                                                                                         state.food = clamp(state.food - 10);

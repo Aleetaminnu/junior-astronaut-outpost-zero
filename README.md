@@ -5,9 +5,9 @@ A 2D top-down lunar outpost game for the NASA Space Apps Challenge "Build a Juni
 ## How to play
 - Walk with WASD or arrow keys (on-screen pad on phones).
 - Stand near a building and press E or Space (INTERACT on phones).
-- You get 10 power each sol. Every building costs power, so you can't do everything.
-- Press END SOL when you're done. Air, food and shield drop each sol, and radiation hurts the crew.
-- Survive 7 sols and collect 50 science points.
+- You get 10 power each day. Every building costs power, so you can't do everything.
+- Press END DAY when you're done. Air, food and shield drop each day, and radiation hurts the crew.
+- Survive 7 days and collect 50 science points.
 
 ## The trade-off
 Power is limited. Life support, food and shielding keep the crew alive, but the Science Lab is how you win. Spending on one means less for the others.

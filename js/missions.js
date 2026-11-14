@@ -53,7 +53,7 @@ const EVENT_POOL = [
                                                                                                                                                                         }
                                                                                                                                                                         ];
 
-                                                                                                                                                                        // one event for sols 2 to 6, picked at random each game
+                                                                                                                                                                        // one event for days 2 to 6, picked at random each game
                                                                                                                                                                         let eventPlan = {};
 
                                                                                                                                                                         function planEvents() {
