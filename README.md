@@ -1,5 +1,5 @@
 # Junior Astronaut: Outpost Zero
-
+Play the game here: https://aleetaminnu.github.io/junior-astronaut-outpost-zero/
 A 2D top-down lunar outpost game for the NASA Space Apps Challenge "Build a Junior Astronaut Mission Trainer". Built with Phaser 3 and plain JavaScript.
 
 ## How to play
